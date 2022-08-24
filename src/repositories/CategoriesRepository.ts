@@ -8,6 +8,12 @@ class CategoriesRepository {
     this.categories = [];
   }
 
+  findByName(name: string) {
+    const category = this.categories.find((category) => category.name === name);
+
+    return category;
+  }
+
   create({ name, description }: CreateCategoryDTO) {
     const category = new Category();
 
