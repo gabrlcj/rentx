@@ -21,6 +21,10 @@ class CategoriesRepository {
 
     return category;
   }
+
+  getAll() {
+    return this.categories;
+  }
 }
 
 export { CategoriesRepository };
