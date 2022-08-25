@@ -1,4 +1,4 @@
-import { CategoriesRepository } from '../repositories/CategoriesRepository';
+import { ICategoriesRepository } from '../repositories/ICategoriesRepository';
 
 type CreateCategoryParams = {
   name: string;
@@ -6,7 +6,7 @@ type CreateCategoryParams = {
 };
 
 class CreateCategoryService {
-  constructor(private categoriesRepository: CategoriesRepository) {}
+  constructor(private categoriesRepository: ICategoriesRepository) {}
 
   execute({ name, description }: CreateCategoryParams) {
     if (this.categoriesRepository.findByName(name)) {
