@@ -5,7 +5,7 @@ type CreateCategoryParams = {
   description: string;
 };
 
-class CreateCategoryService {
+export class CreateCategoryService {
   constructor(private categoriesRepository: ICategoriesRepository) {}
 
   execute({ name, description }: CreateCategoryParams) {
@@ -18,5 +18,3 @@ class CreateCategoryService {
     return category;
   }
 }
-
-export { CreateCategoryService };

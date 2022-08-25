@@ -1,4 +1,4 @@
-import { CreateCategoryDTO } from '../dtos/CreateCategoryDTO';
+import { CreateCategoryDTO } from '../../../dtos/CreateCategoryDTO';
 import { Category } from '../model/Category';
 
 export interface ICategoriesRepository {

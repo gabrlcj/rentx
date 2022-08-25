@@ -1,8 +1,8 @@
 import { Category } from '../model/Category';
-import { CreateCategoryDTO } from '../dtos/CreateCategoryDTO';
+import { CreateCategoryDTO } from '../../../dtos/CreateCategoryDTO';
 import { ICategoriesRepository } from './ICategoriesRepository';
 
-class CategoriesRepository implements ICategoriesRepository {
+export class CategoriesRepository implements ICategoriesRepository {
   private categories: Category[];
 
   constructor() {
@@ -41,5 +41,3 @@ class CategoriesRepository implements ICategoriesRepository {
     return this.categories;
   }
 }
-
-export { CategoriesRepository };
