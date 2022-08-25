@@ -1,5 +1,5 @@
 import { Category } from '../model/Category';
-import { CreateCategoryDTO } from './DTOs/CreateCategoryDTO';
+import { CreateCategoryDTO } from '../dtos/CreateCategoryDTO';
 
 class CategoriesRepository {
   private categories: Category[];
