@@ -1,5 +1,5 @@
-import { Category } from '../model/Category';
-import { CreateCategoryDTO } from '../../../dtos/CreateCategoryDTO';
+import { Category } from '../../model/Category';
+import { CreateCategoryDTO } from '../../../../dtos/CreateCategoryDTO';
 import { ICategoriesRepository } from './ICategoriesRepository';
 
 export class CategoriesRepository implements ICategoriesRepository {

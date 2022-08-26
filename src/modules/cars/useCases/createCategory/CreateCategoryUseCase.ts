@@ -1,11 +1,11 @@
-import { ICategoriesRepository } from '../repositories/ICategoriesRepository';
+import { ICategoriesRepository } from '../../repositories/Categories/ICategoriesRepository';
 
 type CreateCategoryParams = {
   name: string;
   description: string;
 };
 
-export class CreateCategoryService {
+export class CreateCategoryUseCase {
   constructor(private categoriesRepository: ICategoriesRepository) {}
 
   execute({ name, description }: CreateCategoryParams) {
