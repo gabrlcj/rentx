@@ -7,6 +7,7 @@ type ImportFile = {
   name: string;
   description: string;
 };
+
 export class ImportCategoryUseCase {
   constructor(private categoriesRepository: ICategoriesRepository) {}
 
@@ -27,6 +28,7 @@ export class ImportCategoryUseCase {
           });
         })
         .on('end', () => {
+          fs.promises.unlink(file.path);
           resolve(categories);
         })
         .on('error', (error) => reject(error));
