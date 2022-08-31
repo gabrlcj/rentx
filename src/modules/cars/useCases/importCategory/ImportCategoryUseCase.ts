@@ -41,7 +41,9 @@ export class ImportCategoryUseCase {
 
       const existCategory = this.categoriesRepository.findByName(name);
 
-      if (!existCategory) {
+      if (existCategory) {
+        throw new Error('Category already exists');
+      } else {
         this.categoriesRepository.create({
           name,
           description,

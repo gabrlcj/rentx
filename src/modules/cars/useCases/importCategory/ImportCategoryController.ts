@@ -7,12 +7,10 @@ export class ImportCategoryController {
   async handle(req: Request, res: Response) {
     const { file } = req;
 
-    if (!file) {
-      return res.status(400).json({ message: 'File not found' });
-    }
+    if (!file) return;
 
     await this.importCategoryUseCase.execute(file);
 
-    return res.send();
+    return res.json({ file });
   }
 }
