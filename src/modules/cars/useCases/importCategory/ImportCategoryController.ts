@@ -7,13 +7,15 @@ export class ImportCategoryController {
     const { file } = req;
 
     if (!file) {
-      return res.status(500).json({ error: "File not found!" });
+      return res
+        .status(500)
+        .json({ error: "File not found or categories already exists!" });
     }
 
     const importCategoryUseCase = container.resolve(ImportCategoryUseCase);
 
     await importCategoryUseCase.execute(file);
 
-    return res.json({ file });
+    return res.status(201).json({ file });
   }
 }
