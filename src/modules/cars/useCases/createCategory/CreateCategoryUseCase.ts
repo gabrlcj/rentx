@@ -1,4 +1,4 @@
-import { ICategoriesRepository } from '../../repositories/Categories/ICategoriesRepository';
+import { ICategoriesRepository } from "../../repositories/Categories/ICategoriesRepository";
 
 type CreateCategoryParams = {
   name: string;
@@ -8,12 +8,17 @@ type CreateCategoryParams = {
 export class CreateCategoryUseCase {
   constructor(private categoriesRepository: ICategoriesRepository) {}
 
-  execute({ name, description }: CreateCategoryParams) {
-    if (this.categoriesRepository.findByName(name)) {
-      throw new Error('Category already exists');
+  async execute({ name, description }: CreateCategoryParams) {
+    const categoryExists = await this.categoriesRepository.findByName(name);
+
+    if (categoryExists) {
+      throw new Error("Category already exists");
     }
 
-    const category = this.categoriesRepository.create({ name, description });
+    const category = await this.categoriesRepository.create({
+      name,
+      description,
+    });
 
     return category;
   }

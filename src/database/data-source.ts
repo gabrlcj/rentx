@@ -8,8 +8,8 @@ export const AppDataSource = new DataSource({
   username: "postgres",
   password: "postgres",
   database: "rentx",
-  entities: [],
-  migrations: ["src/database/migrations/*.ts"],
-  synchronize: true,
+  synchronize: false,
   logging: false,
+  entities: ["src/modules/cars/entities/**/*{.ts,.js}"],
+  migrations: ["src/database/migrations/**/*{.ts,.js}"],
 });

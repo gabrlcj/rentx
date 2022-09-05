@@ -1,52 +1,33 @@
-import { Category } from '../../model/Category';
-import { CreateCategoryDTO } from '../../../../dtos/CreateCategoryDTO';
-import { ICategoriesRepository } from './ICategoriesRepository';
+import { Category } from "../../entities/Category";
+import { CreateCategoryDTO } from "../../../../dtos/CreateCategoryDTO";
+import { ICategoriesRepository } from "./ICategoriesRepository";
+
+import { AppDataSource } from "../../../../database/data-source";
+import { Repository } from "typeorm";
 
 export class CategoriesRepository implements ICategoriesRepository {
-  private categories: Category[];
-  private static INSTANCE: CategoriesRepository;
+  private repository: Repository<Category>;
 
-  private constructor() {
-    this.categories = [];
+  constructor() {
+    this.repository = AppDataSource.getRepository(Category);
   }
 
-  public static getInstance(): CategoriesRepository {
-    if (!CategoriesRepository.INSTANCE) {
-      CategoriesRepository.INSTANCE = new CategoriesRepository();
-    }
-
-    return CategoriesRepository.INSTANCE;
+  async findByName(name: string): Promise<Category | null> {
+    return await this.repository.findOneBy({ name });
   }
 
-  findByName(name: string) {
-    const categoryIndex = this.categories.findIndex(
-      (category) => category.name === name
-    );
-
-    if (categoryIndex > -1) {
-      throw new Error('Category already exists!');
-    }
-
-    const category = this.categories[categoryIndex];
-
-    return category;
-  }
-
-  create({ name, description }: CreateCategoryDTO) {
-    const category = new Category();
-
-    Object.assign(category, {
+  async create({ name, description }: CreateCategoryDTO): Promise<Category> {
+    const category = this.repository.create({
       name,
       description,
-      created_at: new Date(),
     });
 
-    this.categories.push(category);
+    await this.repository.save(category);
 
     return category;
   }
 
-  getAll() {
-    return this.categories;
+  async getAll(): Promise<Category[]> {
+    return await this.repository.find();
   }
 }

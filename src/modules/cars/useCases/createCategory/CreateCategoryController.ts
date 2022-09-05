@@ -1,13 +1,16 @@
-import { Request, Response } from 'express';
-import { CreateCategoryUseCase } from './CreateCategoryUseCase';
+import { Request, Response } from "express";
+import { CreateCategoryUseCase } from "./CreateCategoryUseCase";
 
 export class CreateCategoryController {
   constructor(private createCategoryUseCase: CreateCategoryUseCase) {}
 
-  handle(req: Request, res: Response) {
+  async handle(req: Request, res: Response) {
     const { name, description } = req.body;
 
-    const category = this.createCategoryUseCase.execute({ name, description });
+    const category = await this.createCategoryUseCase.execute({
+      name,
+      description,
+    });
 
     return res.status(201).json({ category });
   }
