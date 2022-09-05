@@ -1,41 +1,30 @@
+import { Repository } from "typeorm";
+import { AppDataSource } from "../../../../database/data-source";
 import { CreateSpecificationDTO } from "../../../../dtos/CreateSpecificationDTO";
 import { Specification } from "../../entities/Specification";
 import { ISpecificationRepository } from "./ISpecificationRepository";
 
 export class SpecificationRepository implements ISpecificationRepository {
-  private specifications: Specification[];
+  private repository: Repository<Specification>;
 
   constructor() {
-    this.specifications = [];
+    this.repository = AppDataSource.getRepository(Specification);
+  }
+
+  async findByName(name: string): Promise<Specification | null> {
+    return this.repository.findOneBy({ name });
   }
 
   async create({
     name,
     description,
   }: CreateSpecificationDTO): Promise<Specification> {
-    const specification = new Specification();
-
-    Object.assign(specification, {
+    const specification = this.repository.create({
       name,
       description,
-      created_at: new Date(),
     });
 
-    this.specifications.push(specification);
-
-    return specification;
-  }
-
-  async findByName(name: string): Promise<Specification> {
-    const specificationIndex = this.specifications.findIndex(
-      (specification) => specification.name === name
-    );
-
-    if (specificationIndex > -1) {
-      throw new Error("Specification already exists!");
-    }
-
-    const specification = this.specifications[specificationIndex];
+    await this.repository.save(specification);
 
     return specification;
   }

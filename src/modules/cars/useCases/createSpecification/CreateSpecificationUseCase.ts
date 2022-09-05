@@ -13,11 +13,15 @@ export class CreateSpecificationUseCase {
   ) {}
 
   async execute({ name, description }: CreateSpecificationParams) {
-    if (await this.specificationRepository.findByName(name)) {
+    const specificationExists = await this.specificationRepository.findByName(
+      name
+    );
+
+    if (specificationExists) {
       throw new Error("Specification already exists");
     }
 
-    const specification = this.specificationRepository.create({
+    const specification = await this.specificationRepository.create({
       name,
       description,
     });
