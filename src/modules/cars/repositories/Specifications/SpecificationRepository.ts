@@ -9,7 +9,10 @@ export class SpecificationRepository implements ISpecificationRepository {
     this.specifications = [];
   }
 
-  create({ name, description }: CreateSpecificationDTO) {
+  async create({
+    name,
+    description,
+  }: CreateSpecificationDTO): Promise<Specification> {
     const specification = new Specification();
 
     Object.assign(specification, {
@@ -23,7 +26,7 @@ export class SpecificationRepository implements ISpecificationRepository {
     return specification;
   }
 
-  findByName(name: string): Specification {
+  async findByName(name: string): Promise<Specification> {
     const specificationIndex = this.specifications.findIndex(
       (specification) => specification.name === name
     );

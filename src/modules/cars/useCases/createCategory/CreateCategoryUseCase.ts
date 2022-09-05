@@ -1,12 +1,16 @@
+import { inject, injectable } from "tsyringe";
 import { ICategoriesRepository } from "../../repositories/Categories/ICategoriesRepository";
 
 type CreateCategoryParams = {
   name: string;
   description: string;
 };
-
+@injectable()
 export class CreateCategoryUseCase {
-  constructor(private categoriesRepository: ICategoriesRepository) {}
+  constructor(
+    @inject("CategoriesRepository")
+    private categoriesRepository: ICategoriesRepository
+  ) {}
 
   async execute({ name, description }: CreateCategoryParams) {
     const categoryExists = await this.categoriesRepository.findByName(name);

@@ -2,6 +2,6 @@ import { CreateSpecificationDTO } from "../../../../dtos/CreateSpecificationDTO"
 import { Specification } from "../../entities/Specification";
 
 export interface ISpecificationRepository {
-  create({ name, description }: CreateSpecificationDTO): Specification;
-  findByName(name: string): Specification;
+  create({ name, description }: CreateSpecificationDTO): Promise<Specification>;
+  findByName(name: string): Promise<Specification>;
 }
