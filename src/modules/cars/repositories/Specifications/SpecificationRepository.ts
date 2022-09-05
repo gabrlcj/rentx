@@ -1,6 +1,6 @@
-import { CreateSpecificationDTO } from '../../../../dtos/CreateSpecificationDTO';
-import { Specification } from '../../model/Specification';
-import { ISpecificationRepository } from './ISpecificationRepository';
+import { CreateSpecificationDTO } from "../../../../dtos/CreateSpecificationDTO";
+import { Specification } from "../../entities/Specification";
+import { ISpecificationRepository } from "./ISpecificationRepository";
 
 export class SpecificationRepository implements ISpecificationRepository {
   private specifications: Specification[];
@@ -29,7 +29,7 @@ export class SpecificationRepository implements ISpecificationRepository {
     );
 
     if (specificationIndex > -1) {
-      throw new Error('Specification already exists!');
+      throw new Error("Specification already exists!");
     }
 
     const specification = this.specifications[specificationIndex];
