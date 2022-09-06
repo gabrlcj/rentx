@@ -3,6 +3,7 @@ import { CreateUserDTO } from "../../../../dtos/CreateUserDTO";
 import { User } from "../../entities/User";
 import { IUserRepository } from "../../repositories/Users/IUserRepository";
 import { hash } from "bcrypt";
+import { AppError } from "../../../../errors/AppError";
 
 @injectable()
 export class CreateUserUseCase {
@@ -19,7 +20,7 @@ export class CreateUserUseCase {
   }: CreateUserDTO): Promise<User> {
     const emailExists = await this.userRepository.findByEmail(email);
 
-    if (emailExists) throw new Error("User already exists!");
+    if (emailExists) throw new AppError("User already exists!");
 
     const passwordHash = await hash(password, 8);
 
