@@ -11,10 +11,6 @@ export class SpecificationRepository implements ISpecificationRepository {
     this.repository = AppDataSource.getRepository(Specification);
   }
 
-  async findByName(name: string): Promise<Specification | null> {
-    return this.repository.findOneBy({ name });
-  }
-
   async create({
     name,
     description,
@@ -27,5 +23,9 @@ export class SpecificationRepository implements ISpecificationRepository {
     await this.repository.save(specification);
 
     return specification;
+  }
+
+  async findByName(name: string): Promise<Specification | null> {
+    return this.repository.findOneBy({ name });
   }
 }

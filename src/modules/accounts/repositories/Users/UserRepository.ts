@@ -14,14 +14,12 @@ export class UserRepository implements IUserRepository {
 
   async create({
     name,
-    username,
     password,
     email,
     driverLicense,
   }: CreateUserDTO): Promise<User> {
     const user = this.repository.create({
       name,
-      username,
       password,
       email,
       driverLicense,
@@ -30,5 +28,9 @@ export class UserRepository implements IUserRepository {
     await this.repository.save(user);
 
     return user;
+  }
+
+  async findByEmail(email: string): Promise<User | null> {
+    return await this.repository.findOneBy({ email });
   }
 }

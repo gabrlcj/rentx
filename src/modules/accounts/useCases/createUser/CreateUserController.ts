@@ -10,6 +10,6 @@ export class CreateUserController {
 
     const user = await createUserUseCase.execute(data);
 
-    return res.status(201).json(user);
+    return res.status(201).json({ user });
   }
 }

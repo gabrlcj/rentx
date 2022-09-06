@@ -12,10 +12,6 @@ export class CategoriesRepository implements ICategoriesRepository {
     this.repository = AppDataSource.getRepository(Category);
   }
 
-  async findByName(name: string): Promise<Category | null> {
-    return await this.repository.findOneBy({ name });
-  }
-
   async create({ name, description }: CreateCategoryDTO): Promise<Category> {
     const category = this.repository.create({
       name,
@@ -25,6 +21,10 @@ export class CategoriesRepository implements ICategoriesRepository {
     await this.repository.save(category);
 
     return category;
+  }
+
+  async findByName(name: string): Promise<Category | null> {
+    return await this.repository.findOneBy({ name });
   }
 
   async getAll(): Promise<Category[]> {
