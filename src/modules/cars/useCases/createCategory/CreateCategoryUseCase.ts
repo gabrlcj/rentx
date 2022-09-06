@@ -19,9 +19,7 @@ export class CreateCategoryUseCase {
   }: CreateCategoryParams): Promise<Category> {
     const categoryExists = await this.categoriesRepository.findByName(name);
 
-    if (categoryExists) {
-      throw new Error("Category already exists");
-    }
+    if (categoryExists) throw new Error("Category already exists");
 
     const category = await this.categoriesRepository.create({
       name,
