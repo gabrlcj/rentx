@@ -1,4 +1,5 @@
 import { inject, injectable } from "tsyringe";
+import { deleteFile } from "../../../../utils/file";
 import { UserRepository } from "../../repositories/Users/UserRepository";
 
 type UpdateUserAvatarParams = {
@@ -17,7 +18,12 @@ export class UpdateUserAvatarUseCase {
     const user = await this.userRepository.findById(userId);
 
     if (user) {
+      if (user.avatar) {
+        await deleteFile(`./tmp/avatar/${user.avatar}`);
+      }
+
       user.avatar = avatarFile;
+
       await this.userRepository.create(user);
     }
   }
